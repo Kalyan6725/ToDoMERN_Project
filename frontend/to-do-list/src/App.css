@@ -1,0 +1,171 @@
+body {
+          background: #f5f6fa;
+          font-family: 'Segoe UI', Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+        }
+
+        .app-container {
+          max-width: 400px;
+          margin: 40px auto;
+          background: #fff;
+          border-radius: 14px;
+          box-shadow: 0 4px 24px rgba(44, 62, 80, 0.08);
+          padding: 32px 24px;
+        }
+
+        h1 {
+          text-align: center;
+          color: #2d3436;
+          margin-bottom: 24px;
+          font-size: 2rem;
+          letter-spacing: 1px;
+        }
+
+        .todo-input-container {
+          display: flex;
+          justify-content: center;
+          gap: 10px;
+          margin-bottom: 24px;
+        }
+
+        .todo-input {
+          flex: 1;
+          padding: 10px 14px;
+          border: 1px solid #dfe6e9;
+          border-radius: 6px;
+          font-size: 1rem;
+          outline: none;
+          transition: border 0.2s;
+        }
+
+        .todo-input:focus {
+          border-color: #0984e3;
+        }
+
+        .add-btn {
+          background: #0984e3;
+          color: #fff;
+          border: none;
+          border-radius: 6px;
+          padding: 10px 18px;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: background 0.2s;
+        }
+
+        .add-btn:hover {
+          background: #74b9ff;
+        }
+
+        .todo-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+
+        .todo-item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background: #f1f2f6;
+          padding: 12px 14px;
+          border-radius: 6px;
+          margin-bottom: 10px;
+          transition: background 0.2s;
+        }
+
+        /* Flex properties for the edit mode container within todo-item */
+        .todo-item.editing {
+            flex-wrap: wrap; /* Allow items to wrap to the next line */
+            justify-content: flex-start; /* Align items to the start when wrapped */
+            gap: 8px; /* Add some general gap between elements when wrapped */
+        }
+        
+        .todo-item.editing .edit-mode-controls {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%; /* Take full width of the li */
+            align-items: center;
+            gap: 8px; /* Spacing between input and button group */
+        }
+
+        .todo-item.editing .todo-input {
+            flex-grow: 1; /* Allow input to grow and shrink */
+            min-width: 150px; /* Ensure input has a minimum readable width */
+        }
+
+        .todo-item .edit-buttons-group { /* NEW CLASS for the buttons */
+            display: flex;
+            gap: 8px; /* Spacing between Update and Cancel buttons */
+        }
+
+        /* NEW CSS for non-editing action buttons group */
+        .todo-item .action-buttons {
+            display: flex;
+            gap: 8px; /* Gap between Edit and Delete buttons */
+            align-items: center;
+        }
+
+        .todo-item.completed {
+          text-decoration: line-through;
+          color: #636e72;
+          background: #dfe6e9;
+        }
+
+        .todo-text {
+          flex: 1;
+          font-size: 1rem;
+        }
+
+        .edit-btn {
+          background: #c4e822;
+          color: #fdfcfc;
+          border: none;
+          border-radius: 4px;
+          padding: 6px 12px;
+          font-size: 0.95rem;
+          cursor: pointer;
+          /* Removed or adjusted margin-left here if it was causing overflow */
+          /* margin-left: 10px; */ 
+          transition: background 0.2s;
+        }
+
+        .edit-btn:hover {
+          background: #e3fc99;
+        }
+
+        .delete-btn {
+          background: #d63031;
+          color: #fff;
+          border: none;
+          border-radius: 4px;
+          padding: 6px 12px;
+          font-size: 0.95rem;
+          cursor: pointer;
+          /* Removed or adjusted margin-left here if it was causing overflow */
+          /* margin-left: 10px; */ 
+          transition: background 0.2s;
+        }
+
+        .delete-btn:hover {
+          background: #ff7675;
+        }
+
+        @media (max-width: 500px) {
+          .app-container {
+            max-width: 98vw;
+            padding: 18px 6px;
+          }
+           /* Further adjustments for very small screens if needed */
+          .todo-item.editing .todo-input {
+              min-width: unset; /* Allow input to shrink more */
+              width: 100%; /* Take full width if wrapping is needed */
+              margin-bottom: 8px; /* Add space below input if buttons wrap */
+          }
+          .todo-item.editing .edit-buttons-group,
+          .todo-item .action-buttons { /* Apply to both groups */
+              width: 100%; /* Make button group take full width */
+              justify-content: flex-end; /* Align buttons to the right if they wrap */
+          }
+        }
