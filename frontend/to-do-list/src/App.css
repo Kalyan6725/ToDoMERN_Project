@@ -1,171 +1,279 @@
+/* General Body Styles */
 body {
-          background: #f5f6fa;
-          font-family: 'Segoe UI', Arial, sans-serif;
-          margin: 0;
-          padding: 0;
-        }
+    background-color: #f5f6fa; /* Light gray background */
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Flexbox for centering content on the page */
+    justify-content: center; /* Center horizontally */
+    align-items: flex-start; /* Align to the top of the viewport */
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    box-sizing: border-box; /* Include padding/border in element's total width/height */
+    padding: 20px; /* Add some overall padding to prevent content from touching screen edges */
+}
 
-        .app-container {
-          max-width: 400px;
-          margin: 40px auto;
-          background: #fff;
-          border-radius: 14px;
-          box-shadow: 0 4px 24px rgba(44, 62, 80, 0.08);
-          padding: 32px 24px;
-        }
+/* Main Application Wrapper */
+/* This replaces your inline style on the outermost div */
+.main-app-wrapper {
+    background-color: #fff; /* White background for the main app card */
+    padding: 32px 24px; /* Internal padding */
+    border-radius: 14px; /* Rounded corners */
+    width: 100%; /* Take full width up to max-width */
+    max-width: 400px; /* Limits the overall width of your application */
+    margin: 40px auto; /* Centers the container horizontally with vertical margin */
+    text-align: center; /* Centers the H1, but todo items will override this */
+    box-shadow: 0 4px 24px rgba(44, 62, 80, 0.08); /* Subtle shadow for depth */
+    box-sizing: border-box; /* Crucial for padding not to add to max-width */
+}
 
-        h1 {
-          text-align: center;
-          color: #2d3436;
-          margin-bottom: 24px;
-          font-size: 2rem;
-          letter-spacing: 1px;
-        }
+/* Heading Style */
+h1 {
+    text-align: center;
+    color: #2d3436; /* Dark gray for text */
+    margin-bottom: 24px;
+    font-size: 2rem; /* Larger heading */
+    letter-spacing: 1px; /* Slight letter spacing */
+}
 
-        .todo-input-container {
-          display: flex;
-          justify-content: center;
-          gap: 10px;
-          margin-bottom: 24px;
-        }
+/* AddTodo Component Container (assuming it has a container class) */
+/* You might need to adjust this if Addtodo renders differently */
+/* Assuming AddTodo renders an input and a button inside a div */
+.add-todo-container { /* You should add this class to your Addtodo's root div */
+    margin-bottom: 25px;
+    display: flex;
+    gap: 10px; /* Space between input and button */
+    align-items: center;
+}
 
-        .todo-input {
-          flex: 1;
-          padding: 10px 14px;
-          border: 1px solid #dfe6e9;
-          border-radius: 6px;
-          font-size: 1rem;
-          outline: none;
-          transition: border 0.2s;
-        }
+.add-todo-container input[type="text"] {
+    flex-grow: 1;
+    padding: 10px 12px;
+    border: 1px solid #ced4da; /* Light gray border */
+    border-radius: 6px;
+    font-size: 1em;
+    outline: none;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
 
-        .todo-input:focus {
-          border-color: #0984e3;
-        }
+.add-todo-container input[type="text"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
 
-        .add-btn {
-          background: #0984e3;
-          color: #fff;
-          border: none;
-          border-radius: 6px;
-          padding: 10px 18px;
-          font-size: 1rem;
-          cursor: pointer;
-          transition: background 0.2s;
-        }
+.add-todo-container button {
+    padding: 10px 20px;
+    background-color: #28a745; /* Green for add button */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1em;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    flex-shrink: 0; /* Prevent it from shrinking */
+}
 
-        .add-btn:hover {
-          background: #74b9ff;
-        }
+.add-todo-container button:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: translateY(-1px);
+}
 
-        .todo-list {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-        }
 
-        .todo-item {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          background: #f1f2f6;
-          padding: 12px 14px;
-          border-radius: 6px;
-          margin-bottom: 10px;
-          transition: background 0.2s;
-        }
+/* --- To-Do Item Styling --- */
+.todo-item {
+    display: flex; /* Use flexbox for horizontal layout */
+    align-items: center; /* Vertically center content and buttons */
+    justify-content: space-between; /* Space out content and buttons */
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px; /* Slightly more rounded than buttons */
+    margin-bottom: 12px; /* Space between individual todo items */
+    padding: 14px 20px; /* Adjusted padding */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06); /* Slightly stronger shadow */
+    transition: all 0.3s ease; /* Smooth transitions for hover */
+    min-width: 0; /* Allows this flex container to shrink its children if needed */
+}
 
-        /* Flex properties for the edit mode container within todo-item */
-        .todo-item.editing {
-            flex-wrap: wrap; /* Allow items to wrap to the next line */
-            justify-content: flex-start; /* Align items to the start when wrapped */
-            gap: 8px; /* Add some general gap between elements when wrapped */
-        }
-        
-        .todo-item.editing .edit-mode-controls {
-            display: flex;
-            flex-wrap: wrap;
-            width: 100%; /* Take full width of the li */
-            align-items: center;
-            gap: 8px; /* Spacing between input and button group */
-        }
+.todo-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px); /* Slight lift on hover */
+}
 
-        .todo-item.editing .todo-input {
-            flex-grow: 1; /* Allow input to grow and shrink */
-            min-width: 150px; /* Ensure input has a minimum readable width */
-        }
+/* Div containing the todo text or input field */
+.todo-item > div:first-child {
+    flex-grow: 1; /* Allows this div to take up available space */
+    margin-right: 15px; /* Space between content and buttons */
+    display: flex; /* Ensure content inside also flexes if needed */
+    align-items: center;
+    min-width: 0; /* Crucial: Allows the input/text inside to shrink */
+    overflow: hidden; /* Hides overflowing text/input if it can't shrink enough */
+    text-align: left; /* Ensure text aligns left within its div */
+}
 
-        .todo-item .edit-buttons-group { /* NEW CLASS for the buttons */
-            display: flex;
-            gap: 8px; /* Spacing between Update and Cancel buttons */
-        }
+.todo-item p {
+    margin: 0; /* Remove default paragraph margin */
+    font-size: 1.05em; /* Slightly adjusted font size */
+    color: #34495e; /* Darker text color */
+    word-break: break-word; /* Handle long words */
+    overflow-wrap: break-word; /* Newer spec for long words */
+}
 
-        /* NEW CSS for non-editing action buttons group */
-        .todo-item .action-buttons {
-            display: flex;
-            gap: 8px; /* Gap between Edit and Delete buttons */
-            align-items: center;
-        }
+/* Input field inside todo-item for editing */
+.todo-item input[type="text"] {
+    flex-grow: 1; /* Allow input to take full width of its parent div */
+    padding: 9px 12px; /* Slightly adjusted padding for consistency */
+    border: 1px solid #007bff; /* Primary blue border for active editing */
+    border-radius: 6px;
+    font-size: 1em;
+    outline: none;
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.08);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box; /* Include padding/border in element's total width */
+    min-width: 0; /* Crucial: Allows the input to shrink */
+}
 
-        .todo-item.completed {
-          text-decoration: line-through;
-          color: #636e72;
-          background: #dfe6e9;
-        }
+.todo-item input[type="text"]:focus {
+    border-color: #0056b3; /* Darker blue on focus */
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.2); /* Softer focus ring */
+}
 
-        .todo-text {
-          flex: 1;
-          font-size: 1rem;
-        }
+/* --- Button Group Container --- */
+.todo-item div:last-child {
+    display: flex; /* Flexbox for buttons to sit next to each other */
+    gap: 10px; /* Consistent space between buttons */
+    flex-shrink: 0; /* CRITICAL: Prevent this button group from shrinking */
+    /* When buttons are side-by-side, ensure they don't wrap too early */
+    flex-wrap: nowrap;
+}
 
-        .edit-btn {
-          background: #c4e822;
-          color: #fdfcfc;
-          border: none;
-          border-radius: 4px;
-          padding: 6px 12px;
-          font-size: 0.95rem;
-          cursor: pointer;
-          /* Removed or adjusted margin-left here if it was causing overflow */
-          /* margin-left: 10px; */ 
-          transition: background 0.2s;
-        }
+/* Base Button Styles */
+.todo-item button {
+    padding: 9px 18px; /* Adjusted padding for better click target */
+    border: none;
+    border-radius: 6px; /* Consistent border radius */
+    cursor: pointer;
+    font-weight: 600; /* Bolder text */
+    font-size: 0.95em; /* Slightly larger font */
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    white-space: nowrap; /* Prevent button text from wrapping */
+    flex-shrink: 0; /* Prevent individual buttons from shrinking */
+    flex-grow: 0; /* Prevent individual buttons from growing */
+    box-sizing: border-box;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle button shadow */
+}
 
-        .edit-btn:hover {
-          background: #e3fc99;
-        }
+.todo-item button:active {
+    transform: translateY(1px); /* Slight press effect on click */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
 
-        .delete-btn {
-          background: #d63031;
-          color: #fff;
-          border: none;
-          border-radius: 4px;
-          padding: 6px 12px;
-          font-size: 0.95rem;
-          cursor: pointer;
-          /* Removed or adjusted margin-left here if it was causing overflow */
-          /* margin-left: 10px; */ 
-          transition: background 0.2s;
-        }
+/* Edit/Update Button */
+.edit-btn {
+    background-color: #007bff; /* Primary blue */
+    color: white;
+}
 
-        .delete-btn:hover {
-          background: #ff7675;
-        }
+.edit-btn:hover {
+    background-color: #0069d9; /* Darker blue on hover */
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+}
 
-        @media (max-width: 500px) {
-          .app-container {
-            max-width: 98vw;
-            padding: 18px 6px;
-          }
-           /* Further adjustments for very small screens if needed */
-          .todo-item.editing .todo-input {
-              min-width: unset; /* Allow input to shrink more */
-              width: 100%; /* Take full width if wrapping is needed */
-              margin-bottom: 8px; /* Add space below input if buttons wrap */
-          }
-          .todo-item.editing .edit-buttons-group,
-          .todo-item .action-buttons { /* Apply to both groups */
-              width: 100%; /* Make button group take full width */
-              justify-content: flex-end; /* Align buttons to the right if they wrap */
-          }
-        }
+/* Delete/Cancel Button */
+.delete-btn {
+    background-color: #dc3545; /* Red for destructive actions */
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c82333; /* Darker red on hover */
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.2);
+}
+
+/* --- Responsive Adjustments --- */
+
+/* For screens smaller than or equal to 768px (tablets, large phones) */
+@media (max-width: 768px) {
+    .main-app-wrapper {
+        margin: 20px; /* Reduce margin on smaller screens */
+        padding: 25px 20px; /* Slightly less padding */
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .todo-input-container {
+        flex-direction: column; /* Stack input and button */
+        gap: 15px; /* More space when stacked */
+        padding: 15px;
+    }
+
+    .add-todo-container button {
+        width: 100%; /* Make add button full width when stacked */
+        padding: 12px; /* Larger touch target */
+    }
+
+    .todo-item {
+        padding: 12px 15px; /* Reduced padding */
+        flex-direction: column; /* Stack content and buttons vertically */
+        align-items: stretch; /* Stretch items to fill available width */
+    }
+
+    /* Adjust spacing when content and buttons are stacked */
+    .todo-item > div:first-child {
+        margin-right: 0; /* Remove right margin */
+        margin-bottom: 12px; /* Add bottom margin for vertical separation */
+    }
+
+    .todo-item input[type="text"] {
+        padding: 12px; /* Larger input field for touch */
+    }
+
+    /* CRITICAL CHANGE: Ensure buttons stack vertically on smaller screens */
+    .todo-item div:last-child {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 10px; /* Space between stacked buttons */
+        flex-wrap: nowrap; /* Ensure no wrapping in a row, as we are in a column */
+        justify-content: flex-start; /* Align stacked buttons to the left */
+        align-items: stretch; /* Make stacked buttons fill the horizontal width */
+    }
+
+    /* Make individual buttons full width when stacked */
+    .todo-item button {
+        width: 100%; /* Make buttons full width */
+        padding: 12px; /* Larger touch targets */
+        font-size: 1em; /* Slightly larger font for readability */
+    }
+}
+
+/* For screens smaller than or equal to 480px (mobile phones) */
+@media (max-width: 480px) {
+    .main-app-wrapper {
+        margin: 15px; /* Even less margin on very small screens */
+        padding: 20px 15px; /* Reduce padding further */
+    }
+
+    h1 {
+        font-size: 1.6rem;
+        margin-bottom: 20px;
+    }
+
+    .todo-item {
+        padding: 10px 12px; /* Further reduced padding */
+    }
+
+    .todo-item p {
+        font-size: 1em;
+    }
+
+    .todo-item input[type="text"] {
+        padding: 10px;
+    }
+
+    .todo-item button {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+}

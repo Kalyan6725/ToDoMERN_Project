@@ -48,7 +48,7 @@ function Home() {
 
 
   return (
-    <div style={{backgroundColor: 'lightblue', padding: '20px', borderRadius: '10px', width: '400px', margin: 'auto', textAlign: 'center'}}>
+    <div className='main-app-wrapper'>
       <h1>To-Do List</h1>
       <Addtodo />
             {todos.map((todo, index) => (
