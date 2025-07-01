@@ -15,7 +15,8 @@ function Home() {
             axios.put(`http://localhost:5000/update/${id}`, { todo: editValue })
             .then(response => {
                 console.log('Todo updated successfully:', response.data);
-                setTodos(todos.map(todo => todo._id === id ? { ...todo, todo: editValue } : todo));
+                fetchTodos(); // Refresh the todo list after update
+                //setTodos(todos.map(todo => todo._id === id ? { ...todo, todo: editValue } : todo));
                 setEdit(null);
                 setEditValue('');
             })
@@ -28,15 +29,16 @@ function Home() {
         axios.delete(`http://localhost:5000/delete/${id}`)
         .then(response => {
             console.log('Todo deleted successfully:', response.data);
-            setTodos(todos.filter(todo => todo._id !== id)); // Update state to remove the deleted todo
+            fetchTodos(); // Refresh the todo list after deletion
+            //setTodos(todos.filter(todo => todo._id !== id)); // Update state to remove the deleted todo
         })
         .catch(error => {
             console.error('There was an error deleting the todo!', error);
         });
     }
 
-    useEffect(() => {
-        axios.get('http://localhost:5000/get')
+    const fetchTodos = async () => {
+            axios.get('http://localhost:5000/get')
         .then(response => {
             console.log(response.data);
             setTodos(response.data);
@@ -44,6 +46,10 @@ function Home() {
         .catch(error => {
             console.error('There was an error fetching the todos!', error);
         });
+        }
+
+    useEffect(() => {
+        fetchTodos();
     }, [])
 
 
