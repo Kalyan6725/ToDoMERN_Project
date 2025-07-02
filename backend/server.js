@@ -10,7 +10,7 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb://127.0.0.1:27017/todo-list')
+if(mongoose.connect('mongodb://127.0.0.1:27017/todo-list'))console.log('Connected to MongoDB');
 // Simple route
 app.get('/', (req, res) => {
     res.send('Server is running');
