@@ -3,13 +3,14 @@ import axios from 'axios';
 import './App.css';
 
 function Addtodo() {
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [todo, setTodo] = React.useState('');
     const handleAdd=()=>{
         console.log(todo);
         if (todo === '') {
             alert('Please enter a task'); // Alert if input is empty
         } else {
-            axios.post('http://localhost:5000/addtodo', { todo: todo })
+            axios.post(`${backendUrl}/addtodo`, { todo: todo })
                 .then(response => {
                     location.reload(); // Reload the page to see the new todo
                     console.log(response);

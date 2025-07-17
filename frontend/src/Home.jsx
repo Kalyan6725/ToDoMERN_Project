@@ -4,7 +4,8 @@ import axios from 'axios';
 import './App.css';
 
 function Home() {
-    const [todos, setTodos] = React.useState([])
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+    const [todos, setTodos] = React.useState([]);
     const [edit, setEdit] = React.useState(null);
     const [editValue, setEditValue] = React.useState('');
 
@@ -12,7 +13,7 @@ function Home() {
         if (editValue.trim() === '') {
             alert('Please enter a task');
         } else {
-            axios.put(`http://localhost:5000/update/${id}`, { todo: editValue })
+            axios.put(`${backendUrl}/update/${id}`, { todo: editValue })
             .then(response => {
                 console.log('Todo updated successfully:', response.data);
                 fetchTodos(); // Refresh the todo list after update
@@ -26,7 +27,7 @@ function Home() {
         }
     }
     const handleDelete = (id) => () => {
-        axios.delete(`http://localhost:5000/delete/${id}`)
+        axios.delete(`${backendUrl}/delete/${id}`)
         .then(response => {
             console.log('Todo deleted successfully:', response.data);
             fetchTodos(); // Refresh the todo list after deletion
@@ -38,10 +39,10 @@ function Home() {
     }
 
     const fetchTodos = async () => {
-            axios.get('http://localhost:5000/get')
+            axios.get(`${backendUrl}/get`)
         .then(response => {
             console.log(response.data);
-            setTodos(response.data);
+            setTodos(response.data.data || []);
         })
         .catch(error => {
             console.error('There was an error fetching the todos!', error);
