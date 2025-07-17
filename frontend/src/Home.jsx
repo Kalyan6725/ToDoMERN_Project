@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Addtodo from './addtodo.jsx';
+import Addtodo from './Addtodo.jsx';
 import axios from 'axios';
 import './App.css';
 
