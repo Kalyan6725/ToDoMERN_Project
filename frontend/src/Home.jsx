@@ -42,7 +42,7 @@ function Home() {
             axios.get(`${backendUrl}/get`)
         .then(response => {
             console.log(response.data);
-            setTodos(response.data.data || []);
+            setTodos(response.data || []);
         })
         .catch(error => {
             console.error('There was an error fetching the todos!', error);
