@@ -1,16 +1,19 @@
 const express = require('express');
 const cors = require('cors');
+const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const TodoModel = require('./Models/Todo');
 
+dotenv.config();
 const app = express();
 const PORT = 5000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
+const mongourl=process.env.MONGODB_URL;
 
-if(mongoose.connect('mongodb://127.0.0.1:27017/todo-list'))console.log('Connected to MongoDB');
+if(mongoose.connect(mongourl))console.log('Connected to MongoDB');
 // Simple route
 app.get('/', (req, res) => {
     res.send('Server is running');
