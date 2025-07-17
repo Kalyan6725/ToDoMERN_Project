@@ -1,7 +1,7 @@
 import react from 'react';
 import { useState, useEffect } from 'react';
 import './App.css';
-import Home from './home';
+import Home from './Home';
 
 function App() {
   
