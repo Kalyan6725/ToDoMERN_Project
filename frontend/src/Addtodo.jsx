@@ -27,7 +27,14 @@ function Addtodo() {
     }
     return (
     <div className='add-todo-container'>
-      <input type="text" name="" id="" placeholder='Enter a task' onChange={(e)=>setTodo(e.target.value)} />
+      <input type="text" name="" value={todo} id="" placeholder='Enter a task' 
+      onChange={(e)=>setTodo(e.target.value)}
+      onKeyPress={(e) => { // Optional: allow adding with Enter key
+                    if (e.key === 'Enter') {
+                        handleAdd();
+                    }
+                }}
+       />
       <button className='add-btn' onClick={handleAdd}>Add</button>
     </div>
   )
