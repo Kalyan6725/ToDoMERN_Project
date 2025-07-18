@@ -1,18 +1,22 @@
 import React from 'react'
 import axios from 'axios';
 import './App.css';
+import { TodoContext } from './context/Context.js';
 
 function Addtodo() {
+    const { setTodos, fetchTodos } = React.useContext(TodoContext);
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [todo, setTodo] = React.useState('');
     const handleAdd=()=>{
         console.log(todo);
         if (todo === '') {
-            alert('Please enter a task'); // Alert if input is empty
+            alert('Please enter a task');
         } else {
             axios.post(`${backendUrl}/addtodo`, { todo: todo })
                 .then(response => {
-                    location.reload(); // Reload the page to see the new todo
+                    //location.reload(); // Reload the page to see the new todo
+                    setTodos(prevTodos => [...prevTodos, response.data]);
+                    fetchTodos();
                     console.log(response);
                     setTodo(''); // Clear the input field after adding
                 })

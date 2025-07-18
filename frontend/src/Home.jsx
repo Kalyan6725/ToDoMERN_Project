@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Addtodo from './Addtodo.jsx';
 import axios from 'axios';
 import './App.css';
+import { TodoContext } from './context/Context.js';
 
 function Home() {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -16,8 +17,8 @@ function Home() {
             axios.put(`${backendUrl}/update/${id}`, { todo: editValue })
             .then(response => {
                 console.log('Todo updated successfully:', response.data);
-                fetchTodos(); // Refresh the todo list after update
-                //setTodos(todos.map(todo => todo._id === id ? { ...todo, todo: editValue } : todo));
+                //fetchTodos();
+                setTodos(todos.map(todo => todo._id === id ? { ...todo, todo: editValue } : todo));
                 setEdit(null);
                 setEditValue('');
             })
@@ -30,8 +31,8 @@ function Home() {
         axios.delete(`${backendUrl}/delete/${id}`)
         .then(response => {
             console.log('Todo deleted successfully:', response.data);
-            fetchTodos(); // Refresh the todo list after deletion
-            //setTodos(todos.filter(todo => todo._id !== id)); // Update state to remove the deleted todo
+            //fetchTodos();
+            setTodos(todos.filter(todo => todo._id !== id));
         })
         .catch(error => {
             console.error('There was an error deleting the todo!', error);
@@ -57,7 +58,9 @@ function Home() {
   return (
     <div className='main-app-wrapper'>
       <h1>To-Do List</h1>
-      <Addtodo />
+      <TodoContext.Provider value={{ setTodos, todos, fetchTodos }}>
+                <Addtodo />
+            </TodoContext.Provider>
             {todos.map((todo, index) => (
                 <div className='todo-item' key={todo._id}>
                     {edit === todo._id ? (
